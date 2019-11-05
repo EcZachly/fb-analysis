@@ -25,11 +25,11 @@ def read_pokemon_file():
             statname = stat['stat']['name']
             if basestat >= highvalue:
                 highvalue = basestat
-                highname =statname
+                highname = statname
             if basestat < lowvalue:
                 lowvalue = basestat
                 lowname = statname
         print(name + ' lowest stat is ' + lowname + ' with the value of ' + str(lowvalue))
-        print(name +' highest stat is ' + highname + ' with the value of ' + str(highvalue))
+        print(name + ' highest stat is ' + highname + ' with the value of ' + str(highvalue))
 
 read_pokemon_file()
