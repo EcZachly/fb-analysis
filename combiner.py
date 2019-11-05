@@ -6,6 +6,7 @@ import csv
 def filter_json_files(filename):
     return 'message_1.json' in filename
 
+
 def filter_jpg_files(filename):
     return '.jpg' in filename
 
@@ -15,9 +16,8 @@ def filter_jpg_files(filename):
 # odds = filter(isOdd, array) = [1,3]
 # doubled = map(times2, array) = [2,4,6]
 # summed = reduce(sum, array) = 6 (1+2+3)
-def make_thread_key(message):
+def get_participants(message):
     participants = message['participants']
-    # map, filter, and reduce
     # [{"name": "Zach Wilson"}, {"name": "Joann Vuong"}]
     # ["Zach Wilson", "Joann Vuong"]
     # Zach Wilson-Joann Vuong
@@ -55,7 +55,7 @@ class Combiner:
         for file in all_json_files:
             with open(file) as f:
                 j = json.load(f)
-                participants = make_thread_key(j)
+                participants = get_participants(j)
                 identifier = j["thread_path"]
                 messages = j["messages"]
                 mapped_messages = list(
