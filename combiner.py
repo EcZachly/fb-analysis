@@ -50,7 +50,7 @@ class Combiner:
 
         all_messages = []
 
-        csv_file = csv.writer(open("data.csv", "w"))
+        csv_file = csv.writer(open("data.csv", "w", encoding='utf-8'))
 
         for file in all_json_files:
             with open(file) as f:
