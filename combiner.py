@@ -43,7 +43,7 @@ def process_json_files(files):
     for file in files:
         with open(file) as f:
             json_file = json.load(f)
-            participants = get_participants(j)
+            participants = get_participants(json_file)
             identifier = json_file["thread_path"]
             messages = json_file["messages"]
             mapped_messages = list(
