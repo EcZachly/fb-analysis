@@ -17,7 +17,7 @@ class Analyzer:
         print("analyzing files:" + str(self.files))
         for file in self.files:
             with open(file, encoding='utf-8', mode='r') as csv_file:
-                with open('data_with_entities.csv', new_line='\n', encoding='utf-8', mode='w') as output_file:
+                with open('data_with_entities.csv', newline='\n', encoding='utf-8', mode='w') as output_file:
                     csv_writer = csv.writer(output_file)
                     csv_reader = csv.reader(csv_file)
                     csv_writer.writerow(["thread_identifier", "participants", "content", "timestamp_ms", "sender_name", "type", "entity_name", "entity_label"])

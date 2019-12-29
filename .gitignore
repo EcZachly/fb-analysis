@@ -2,3 +2,5 @@
 __pycache__/
 *.csv
 data/facebook
+venv/
+.DS_Store
