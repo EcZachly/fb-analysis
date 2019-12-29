@@ -28,7 +28,7 @@ class Combiner:
 
 
 def write_csv_file(messages, filename):
-    csv_file = csv.writer(open(filename, "w", encoding='utf-8'))
+    csv_file = csv.writer(open(filename, "w", new_line='\n', encoding='utf-8'))
     csv_file.writerow(["thread_identifier", "participants", "content", "timestamp_ms", "sender_name", "type"])
     for message in messages:
         if "content" in message:
