@@ -94,11 +94,9 @@ def map_locations(message, timezone="America/Los_Angeles"):
 
 def location_file_to_rows(file, filename):
     locations = file['location_history']
-    print(locations)
     mapped_messages = list(
         map(lambda message: map_locations(message), locations)
     )
-    print(mapped_messages)
     return mapped_messages
 
 
@@ -159,7 +157,6 @@ def likes_file_to_rows(file, filename):
     mapped_messages = list(
         map(lambda message: map_likes(message, LIKE_TYPE_DICT[filename]), likes)
     )
-    print(mapped_messages)
     return mapped_messages
 
 

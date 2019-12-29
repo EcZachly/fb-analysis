@@ -23,8 +23,6 @@ class Combiner:
         all_files = []
         # we want to walk the directory that we pass in from main.py (usually data/facebook/messages)
         for (path, directory, filenames) in os.walk(self.input_path):
-            print(filenames)
-            print(self.file_list)
             json_files = list(filter(lambda file_name: file_name in self.file_list, filenames))
             for file in json_files:
                 all_files.append(path + '/' + file)
