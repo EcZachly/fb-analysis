@@ -179,3 +179,47 @@ LikesConfig = CombinerConfig(
     file_to_rows=likes_file_to_rows
 )
 
+
+def map_comments(comment, timezone='America/Los_Angeles'):
+    comment['identifier'] = comment['timestamp']
+    content = 'Missing content'
+    author = 'Missing Author'
+    if 'data' in comment and len(comment['data']) > 0:
+        comment_object = comment['data'][0]['comment']
+        content = comment_object['comment']
+        author = comment_object['author'] if 'author' in comment_object else 'Missing Author'
+    comment['author'] = author
+    comment['content'] = content
+    la_timezone = pytz.timezone(timezone)
+    comment['timestamp_iso'] = la_timezone.localize(dt.datetime.utcfromtimestamp(comment['timestamp'])).isoformat()
+    return comment
+
+
+def comments_file_to_rows(file, filename):
+    comments = file['comments']
+    mapped_messages = list(
+        map(lambda message: map_comments(message), comments)
+    )
+    return mapped_messages
+
+
+CommentsConfig = CombinerConfig(
+    input_path="data/facebook/comments",
+    output_directory='output',
+    output_file_name="comments.csv",
+    file_list=[
+       "comments.json"
+    ],
+    output_columns=[
+            "timestamp",
+            "title",
+            "content",
+            "author",
+            "timestamp_iso"
+    ],
+    file_to_rows=comments_file_to_rows
+)
+
+
+
+
