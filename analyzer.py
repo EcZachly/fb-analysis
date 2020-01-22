@@ -22,7 +22,7 @@ class Analyzer:
                 with open('data_with_scores.csv', newline='\n', encoding='utf-8', mode='w') as output_file:
                     csv_writer = csv.writer(output_file)
                     csv_reader = csv.reader(csv_file)
-                    csv_writer.writerow(["thread_identifier", "participants", "content", "timestamp_ms", "timestamp_iso", "sender_name", "type", "positive_value", "negative_value", "neutral_value", "compound_value"])
+                    csv_writer.writerow(["thread_identifier", "participants", "content", "timestamp_ms", "timestamp_iso", "sender_name", "type", "positive_value", "negative_value", "neutral_value", "compound_value","contains_person","contains_gpe","contains_organization","contains_trump"])
                     sid = SentimentIntensityAnalyzer()
                     for row in csv_reader:
                         if len(row) > 3:
@@ -37,14 +37,26 @@ class Analyzer:
                             negative_value = sentiment_score['neg']
                             neutral_value = sentiment_score['neu']
                             compound_value = sentiment_score['compound']
-                            csv_writer.writerow(row + [positive_value, negative_value, neutral_value, compound_value])
 
-                            #entities = ne_chunk(pos_tag(word_tokenize(sentence)))
-                            #for entity in entities:
-                                #if type(entity) != type(()):
-                                    # entity_name = ""
-                                    # for leaf in entity.leaves():
-                                    #     entity_name += leaf[0] + ' '
-                                    # entity_name = entity_name.strip()
-                                    # entity_label = entity.label()
-                                    # csv_writer.writerow(row + [entity_name, entity_label])
+                            contains_gpe = False
+                            contains_person = False
+                            contains_organization = False
+                            contains_trump = False
+                            entities = ne_chunk(pos_tag(word_tokenize(sentence)))
+                            for entity in entities:
+                                if type(entity) != type(()):
+                                    entity_name = ""
+                                    for leaf in entity.leaves():
+                                        entity_name += leaf[0] + ' '
+                                    entity_name = entity_name.strip()
+                                    entity_label = entity.label()
+                                    if entity_label == 'GPE':
+                                        contains_gpe = True
+                                    if entity_label == 'PERSON':
+                                        contains_person = True
+                                    if entity_label == 'ORGANIZATION':
+                                        contains_organization = True
+                                    if entity_name.lower() == 'trump':
+                                        contains_trump = True
+                            csv_writer.writerow(row + [positive_value, negative_value, neutral_value, compound_value,contains_gpe, contains_person, contains_organization,contains_trump])
+
