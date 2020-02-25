@@ -52,6 +52,8 @@ def map_posts(message,  timezone="America/Los_Angeles"):
     for data in message['data'] if 'data' in message else []:
         if 'post' in data:
             message['content'] = data['post'].replace('\n', ' ')
+    if 'content' not in message:
+        message['content'] = 'Empty'
     return message
 
 
