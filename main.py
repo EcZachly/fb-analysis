@@ -4,8 +4,6 @@ from combiner_config import MessagesConfig, PostsConfig, LocationsConfig, LikesC
 from analyzer_config import MessagesAnalyzerConfig, CommentsAnalyzerConfig, PostsAnalyzerConfig
 combiner = Combiner(config=PostsConfig)
 files = combiner.combine()
-
-
 analyzer = Analyzer(config=PostsAnalyzerConfig)
 analyzer.analyze()
 
