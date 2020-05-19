@@ -3,3 +3,4 @@ __pycache__/
 data/facebook
 venv/
 .DS_Store
+output
